@@ -104,14 +104,20 @@
         const setButton = document.getElementById('set-btn');
         const targetInput = document.getElementById('target-input');
 
+        function updateCounter() {
+            counterElement.textContent = counter;
+        }
+
         clickerButton.addEventListener('click', () => {
             if (counter < maxClicks) {
                 counter++;
-                counterElement.textContent = counter;
+                updateCounter();
 
                 // Check if the counter has reached the set target
                 if (target !== null && counter === target) {
                     alert(`Congratulations! You've reached the target of ${target} clicks!`);
+                    counter = 0; // Reset the counter
+                    updateCounter();
                 }
             } else {
                 alert('Maximum clicks reached!');
@@ -120,7 +126,7 @@
 
         resetButton.addEventListener('click', () => {
             counter = 0;
-            counterElement.textContent = counter;
+            updateCounter();
         });
 
         setButton.addEventListener('click', () => {
