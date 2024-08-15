@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADUSTECH DIGITAL TASBAHA</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+            text-align: center;
+        }
+
+        .container {
+            border-radius: 10px;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-family: 'Georgia', serif;
+            color: #333;
+        }
+
+        .counter {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .clicker-btn {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #d1d1d1, #f5f5f5);
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.2), -4px -4px 8px rgba(255,255,255,0.2);
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            outline: none;
+            margin-bottom: 20px;
+        }
+
+        .reset-btn {
+            background: #ff4c4c;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .reset-btn:hover {
+            background: #e03a3a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">ADUSTECH DIGITAL TASBAHA</div>
+        <div id="counter" class="counter">0</div>
+        <button id="clicker-btn" class="clicker-btn">Click</button>
+        <br>
+        <button id="reset-btn" class="reset-btn">Reset</button>
+    </div>
+
+    <script>
+        let counter = 0;
+        const maxClicks = 10000;
+        const counterElement = document.getElementById('counter');
+        const clickerButton = document.getElementById('clicker-btn');
+        const resetButton = document.getElementById('reset-btn');
+
+        clickerButton.addEventListener('click', () => {
+            if (counter < maxClicks) {
+                counter++;
+                counterElement.textContent = counter;
+            } else {
+                alert('Maximum clicks reached!');
+            }
+        });
+
+        resetButton.addEventListener('click', () => {
+            counter = 0;
+            counterElement.textContent = counter;
+        });
+    </script>
+</body>
+</html>
