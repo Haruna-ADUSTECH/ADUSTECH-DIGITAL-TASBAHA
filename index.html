@@ -18,10 +18,15 @@
         }
 
         .container {
+            display: flex;
             border-radius: 10px;
             padding: 20px;
             background: #fff;
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+
+        .main {
+            margin-right: 30px;
         }
 
         .title {
@@ -79,18 +84,57 @@
             border-radius: 5px;
             margin-right: 10px;
         }
+
+        .history-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .history-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-family: 'Georgia', serif;
+            color: #333;
+        }
+
+        .history-list {
+            list-style-type: none;
+            padding: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+
+        .history-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">ADUSTECH DIGITAL TASBAHA</div>
-        <div id="counter" class="counter">0</div>
-        <button id="clicker-btn" class="clicker-btn">Click</button>
-        <br>
-        <button id="reset-btn" class="reset-btn">Reset</button>
-        <div class="input-container">
-            <input type="number" id="target-input" class="input-field" placeholder="Set target" min="1">
-            <button id="set-btn" class="set-btn">Set Target</button>
+        <div class="main">
+            <div class="title">ADUSTECH DIGITAL TASBAHA</div>
+            <div id="counter" class="counter">0</div>
+            <button id="clicker-btn" class="clicker-btn">Click</button>
+            <br>
+            <button id="reset-btn" class="reset-btn">Reset</button>
+            <div class="input-container">
+                <input type="number" id="target-input" class="input-field" placeholder="Set target" min="1">
+                <button id="set-btn" class="set-btn">Set Target</button>
+            </div>
+        </div>
+        <div class="history-container">
+            <div class="history-title">Click History</div>
+            <ul id="history-list" class="history-list"></ul>
         </div>
     </div>
 
@@ -103,21 +147,18 @@
         const resetButton = document.getElementById('reset-btn');
         const setButton = document.getElementById('set-btn');
         const targetInput = document.getElementById('target-input');
-
-        function updateCounter() {
-            counterElement.textContent = counter;
-        }
+        const historyList = document.getElementById('history-list');
 
         clickerButton.addEventListener('click', () => {
             if (counter < maxClicks) {
                 counter++;
-                updateCounter();
+                counterElement.textContent = counter;
 
                 // Check if the counter has reached the set target
                 if (target !== null && counter === target) {
                     alert(`Congratulations! You've reached the target of ${target} clicks!`);
-                    counter = 0; // Reset the counter
-                    updateCounter();
+                    addHistoryItem(target);
+                    resetCounter();
                 }
             } else {
                 alert('Maximum clicks reached!');
@@ -125,8 +166,7 @@
         });
 
         resetButton.addEventListener('click', () => {
-            counter = 0;
-            updateCounter();
+            resetCounter();
         });
 
         setButton.addEventListener('click', () => {
@@ -139,6 +179,18 @@
                 alert('Please enter a valid number greater than 0.');
             }
         });
+
+        function resetCounter() {
+            counter = 0;
+            counterElement.textContent = counter;
+        }
+
+        function addHistoryItem(target) {
+            const listItem = document.createElement('li');
+            listItem.className = 'history-item';
+            listItem.textContent = `Reached ${target} clicks`;
+            historyList.appendChild(listItem);
+        }
     </script>
 </body>
 </html>
